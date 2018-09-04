@@ -219,8 +219,9 @@ void GMainWindow::InitializeWidgets() {
     emu_frametime_label->setToolTip(
         tr("Time taken to emulate a 3DS frame, not counting framelimiting or v-sync. For "
            "full-speed emulation this should be at most 16.67 ms."));
+    ticks_label = new QLabel();
 
-    for (auto& label : {emu_speed_label, game_fps_label, emu_frametime_label}) {
+    for (auto& label : {emu_speed_label, game_fps_label, emu_frametime_label, ticks_label}) {
         label->setVisible(false);
         label->setFrameStyle(QFrame::NoFrame);
         label->setContentsMargins(4, 0, 4, 0);
@@ -825,6 +826,7 @@ void GMainWindow::ShutdownGame() {
     emu_speed_label->setVisible(false);
     game_fps_label->setVisible(false);
     emu_frametime_label->setVisible(false);
+    ticks_label->setVisible(false);
 
     emulation_running = false;
 
@@ -1393,10 +1395,12 @@ void GMainWindow::UpdateStatusBar() {
     }
     game_fps_label->setText(tr("Game: %1 FPS").arg(results.game_fps, 0, 'f', 0));
     emu_frametime_label->setText(tr("Frame: %1 ms").arg(results.frametime * 1000.0, 0, 'f', 2));
+    ticks_label->setText(tr("Ticks: %1").arg(results.ticks));
 
     emu_speed_label->setVisible(true);
     game_fps_label->setVisible(true);
     emu_frametime_label->setVisible(true);
+    ticks_label->setVisible(true);
 }
 
 void GMainWindow::OnCoreError(Core::System::ResultStatus result, std::string details) {

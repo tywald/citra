@@ -207,6 +207,7 @@ private:
     QLabel* emu_speed_label = nullptr;
     QLabel* game_fps_label = nullptr;
     QLabel* emu_frametime_label = nullptr;
+    QLabel* ticks_label = nullptr;
     QTimer status_bar_update_timer;
 
     MultiplayerState* multiplayer_state = nullptr;

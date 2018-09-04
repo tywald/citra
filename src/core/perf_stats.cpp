@@ -15,7 +15,13 @@ using DoubleSecs = std::chrono::duration<double, std::chrono::seconds::period>;
 using std::chrono::duration_cast;
 using std::chrono::microseconds;
 
+std::uint64_t current_ticks;
+
 namespace Core {
+
+void SetCurrentTicks(std::uint64_t ticks) {
+    current_ticks = ticks;
+}
 
 void PerfStats::BeginSystemFrame() {
     std::lock_guard<std::mutex> lock(object_mutex);
@@ -55,6 +61,7 @@ PerfStats::Results PerfStats::GetAndResetStats(microseconds current_system_time_
     results.frametime = duration_cast<DoubleSecs>(accumulated_frametime).count() /
                         static_cast<double>(system_frames);
     results.emulation_speed = system_us_per_second.count() / 1'000'000.0;
+    results.ticks = current_ticks;
 
     // Reset counters
     reset_point = now;

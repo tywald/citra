@@ -14,6 +14,7 @@
 #include "core/core_timing.h"
 #include "core/hle/kernel/svc.h"
 #include "core/memory.h"
+#include "core/perf_stats.h"
 
 class DynarmicThreadContext final : public ARM_Interface::ThreadContext {
 public:
@@ -131,6 +132,7 @@ public:
 
     void AddTicks(std::uint64_t ticks) override {
         CoreTiming::AddTicks(ticks);
+        Core::SetCurrentTicks(ticks);
     }
     std::uint64_t GetTicksRemaining() override {
         s64 ticks = CoreTiming::GetDowncount();

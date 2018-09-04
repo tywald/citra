@@ -10,6 +10,8 @@
 
 namespace Core {
 
+void SetCurrentTicks(std::uint64_t ticks);
+
 /**
  * Class to manage and query performance/timing statistics. All public functions of this class are
  * thread-safe unless stated otherwise.
@@ -27,6 +29,8 @@ public:
         double frametime;
         /// Ratio of walltime / emulated time elapsed
         double emulation_speed;
+        /// Ticks
+        std::uint64_t ticks;
     };
 
     void BeginSystemFrame();
